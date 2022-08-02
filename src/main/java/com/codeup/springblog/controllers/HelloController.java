@@ -1,14 +1,15 @@
 package com.codeup.springblog.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*; //imports ALL annotations
 
 @Controller
 public class HelloController {
     @GetMapping("/hello")
-    @ResponseBody
-    public String hello() {
-        return "<h1>Hello from Spring!</h1>";
+    public String hello(Model model) {
+        model.addAttribute("name", "Visitor");
+        return "hello";
     }
 
 //    @GetMapping("/hello/{name}")
@@ -19,11 +20,11 @@ public class HelloController {
 
 
 //    INSTRUCTOR CODE:
-    @RequestMapping(path ="/hello/{name}", method = RequestMethod.GET)
-    @ResponseBody
-    public String helloToYou(@PathVariable String name) {
-        return String.format("Nice to meet you, %s", name);
-    }
+@RequestMapping(path = "/hello/{name}", method = RequestMethod.GET)
+public String helloToYou(@PathVariable String name, Model model) {
+    model.addAttribute("name", name);
+    return "hello";
+}
 
 
     @GetMapping("/number/{num}")

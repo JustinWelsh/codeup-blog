@@ -6,6 +6,11 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class PostController {
 
+
+//    No need to have an @RequestBody
+//    Why? 
+
+
     @GetMapping("/posts")
     @ResponseBody
     public String viewPosts() {

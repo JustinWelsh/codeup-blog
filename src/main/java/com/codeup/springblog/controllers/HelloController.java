@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*; //'.*' imports ALL annotations
 
 @Controller
 public class HelloController {
-    @GetMapping("/hello")
+    @GetMapping("/hello")       //this line of code is URL pattern to link to the hello.html file.
     public String hello(Model model) {
         model.addAttribute("name", "Visitor");      //this code adds a default value
         return "hello";

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*; //imports ALL annotations
 public class HelloController {
     @GetMapping("/hello")
     public String hello(Model model) {
-        model.addAttribute("name", "Visitor");
+        model.addAttribute("name", "Visitor");      //this code adds a default value
         return "hello";
     }
 

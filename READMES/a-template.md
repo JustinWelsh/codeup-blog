@@ -1,12 +1,9 @@
-Spring Fundamentals
-===
+#Spring Fundamentals
 *Subject*
 
-Notes:
----
+##Notes:
 
-Exercise:
-===
 
-Walkthrough Notes:
----
+#Exercise:
+
+##Walkthrough Notes:

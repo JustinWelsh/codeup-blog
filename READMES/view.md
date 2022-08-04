@@ -17,6 +17,10 @@ Passing data to views
     DiceGuessController
     roll-dice.html
 
+[DiceGuessController](/Users/justinwelsh/IdeaProjects/springblog/src/main/java/com/codeup/springblog/controllers/DiceGuessController.java)
+
+[roll-dice.html](/Users/justinwelsh/IdeaProjects/springblog/src/main/resources/templates/roll-dice.html)
+
 BONUS
 
 "Roll" a series of dice on each page load, as opposed to an individual die. Show all the rolls to the user and display how many rolls matched their guess.

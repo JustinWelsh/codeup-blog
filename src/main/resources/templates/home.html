@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Welcome to our website</title>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="partials/fragment :: head('My Blog')">
 </head>
 <body>
-    <h1>Welcome to Spring Blog!</h1>
+<nav th:replace="partials/fragment :: navbar"></nav>
+<h1>Welcome to our Spring Blog!</h1>
+<footer th:replace="partials/fragment :: footer"></footer>
 </body>
 </html>

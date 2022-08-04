@@ -14,7 +14,7 @@ import java.util.List;
 @Controller
 public class PostController {
 
-//    TODO: Create a new array list and add two post objects to it, then pass that list to the view.
+//    TODO: Create a new array list and add two post objects to it, then pass that list to the view.md.
     @RequestMapping(path = "/posts", method = RequestMethod.GET)
     public String viewAllPosts(Model model) {
         List<Post> allPosts = new ArrayList<>();
@@ -29,7 +29,7 @@ public class PostController {
     }
 
 
-//    TODO: Create a new post object and pass it to the view.
+//    TODO: Create a new post object and pass it to the view.md.
     @RequestMapping(path = "/posts/{id}", method = RequestMethod.GET)
     public String viewIndividualPosts(@PathVariable long id, Model model) {
         model.addAttribute("singlePost", new Post(5, "Single post ready to mingle", "New post, new number, new me, new person?"));

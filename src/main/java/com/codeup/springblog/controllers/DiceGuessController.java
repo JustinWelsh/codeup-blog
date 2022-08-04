@@ -18,9 +18,9 @@ public class DiceGuessController {
         int random_int = (int) (Math.random() * 6) + 1;
 
         if (random_int == number) {
-            return "Correct";
+            return String.format("<h1>CORRECT!</h1>\nDie was indeed %d", random_int);
         } else {
-            return "Sorry, that's wrong";
+            return String.format("<h3>Sorry, that's wrong</h3>\nDie was %d", random_int);
         }
     }
 

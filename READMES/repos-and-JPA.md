@@ -2,8 +2,8 @@
 
 #Repositories & JPA
 
-Notes:
----
+##Notes:
+
 
 #Exercise:
 
@@ -27,7 +27,6 @@ Notes:
 
 10. After the Post is created, you should redirect the user to the posts index page (i.e. /posts). You can redirect by returning a string from a controller method that starts with `"redirect:"`. For example:
 
-## Code block
 ```java
     @GetMapping("/rick-roll")
     public String rickRoll() {

@@ -6,13 +6,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Scanner;
 
 @Controller
 public class PostController {
 //    TODO 6. Use dependency injection to use an instance of this new Posts interface.
-    private final PostRepository postDao;
+    private PostRepository postDao;
 
     public PostController(PostRepository postDao) {
         this.postDao = postDao;
@@ -35,14 +34,14 @@ public class PostController {
 
     @RequestMapping(path = "/posts", method = RequestMethod.GET)
     public String viewAllPosts(Model model) {
-        model.addAttribute("posts", postsDao.findAll());
+        model.addAttribute("posts", postDao.findAll());
         return "/posts/index";
     }
 
 //    TODO: Create a new post object and pass it to the view.md.
     @RequestMapping(path = "/posts/{id}", method = RequestMethod.GET)
     public String viewIndividualPosts(@PathVariable long id, Model model) {
-    model.addAttribute("singlePost", postsDao.getById(id));
+    model.addAttribute("singlePost", postDao.getById(id));
     return "/posts/show";
 }
 
@@ -53,7 +52,7 @@ public class PostController {
 
     @PostMapping("/posts/create")
     public String savePost(@RequestParam(name = "title") String title, @RequestParam(name = "body") String body) {
-        postsDao.save(new Post(title, body));
+        postDao.save(new Post(title, body));
         return "redirect:/posts";
     }
 }

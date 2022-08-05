@@ -97,10 +97,25 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 8. Change your controller method for showing the post creation form to actually show the form created in the step above.
 
 
+```java
+    @RequestMapping(path = "/posts/create", method = RequestMethod.GET)
+    public String viewCreatePostForm() {
+        return "posts/create";
+    }
+```
+
 9. Use what you have learned in this lesson to have the post creation form submit a `POST` request to the controller. Have the controller create a `Post` object and persist it using the `PostRepository`.
 
 
 10. After the Post is created, you should redirect the user to the posts index page (i.e. /posts). You can redirect by returning a string from a controller method that starts with `"redirect:"`. For example:
+
+```java
+    @PostMapping("/posts/create")
+    public String savePost(@RequestParam(name = "title") String title, @RequestParam(name = "body") String body) {
+        postDao.save(new Post(title, body));
+        return "redirect:/posts";
+    }
+```
 
 ### Code Block
 ```java

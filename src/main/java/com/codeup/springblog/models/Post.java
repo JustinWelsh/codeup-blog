@@ -1,8 +1,19 @@
 package com.codeup.springblog.models;
 
+import javax.persistence.*;
+
+//TODO #4: Add the appropriate JPA annotations to your Post class to create the table and columns.
+@Entity
+@Table(name="posts")
 public class Post {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // This auto increments
     private long id;
+
+    @Column(nullable = false, length = 100)
     private String title;
+
+    @Column(nullable = false)
     private String body;
 
     public Post() {}

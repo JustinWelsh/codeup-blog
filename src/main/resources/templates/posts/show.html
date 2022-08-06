@@ -7,5 +7,7 @@
 <body>
 <h1 th:text="${singlePost.getTitle()}"></h1>
 <p th:text="${singlePost.getBody()}"></p>
+<p th:if="${singlePost.user != null}" th:text="${singlePost.user.email}"></p>
+<p th:if="${singlePost.user == null}">No Assigned User.</p>
 </body>
 </html>

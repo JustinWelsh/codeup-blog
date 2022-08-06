@@ -2,21 +2,21 @@ package com.codeup.springblog.controllers;
 
 import com.codeup.springblog.models.Post;
 import com.codeup.springblog.repositories.PostRepository;
+import com.codeup.springblog.repositories.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Scanner;
-
 @Controller
 public class PostController {
 //    TODO 6. Use dependency injection to use an instance of this new Posts interface.
-    private PostRepository postDao;
+    private final PostRepository postDao;
+    private final UserRepository userDao;
 
-    public PostController(PostRepository postDao) {
+    public PostController(PostRepository postDao, UserRepository userDao) {
         this.postDao = postDao;
+        this.userDao = userDao;
     }
-
 
     //    TODO: Create a new array list and add two post objects to it, then pass that list to the view.md.
 //    @RequestMapping(path = "/posts", method = RequestMethod.GET)
@@ -52,7 +52,7 @@ public class PostController {
 
     @PostMapping("/posts/create")
     public String savePost(@RequestParam(name = "title") String title, @RequestParam(name = "body") String body) {
-        postDao.save(new Post(title, body));
+        postDao.save(new Post(title, body, userDao.getById(1L)));
         return "redirect:/posts";
     }
 }

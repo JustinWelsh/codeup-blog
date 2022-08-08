@@ -18,7 +18,8 @@
 
     @PostMapping("/posts/create")
     public String create(@ModelAttribute Post post) {
-        // save the ad...
+        // save the post...
+        post.setUser(userDao.getById(1L));
         postDao.save(post);
         // redirect to to the index with all the ads
         return "redirect:/posts";

@@ -66,6 +66,7 @@ public class PostController {
 
     @PostMapping("/posts/create")
     public String create(@ModelAttribute Post post) {
+        post.setUser(userDao.getById(1L));
         // save the post...
         postDao.save(post);
         // redirect to the index with all the ads

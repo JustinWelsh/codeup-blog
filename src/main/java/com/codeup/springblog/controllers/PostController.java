@@ -45,14 +45,38 @@ public class PostController {
     return "/posts/show";
 }
 
-    @RequestMapping(path = "/posts/create", method = RequestMethod.GET)
-    public String viewCreatePostForm() {
+//    @RequestMapping(path = "/posts/create", method = RequestMethod.GET)
+//    public String viewCreatePostForm() {
+//        return "posts/create";
+//    }
+//
+//    @PostMapping("/posts/create")
+//    public String savePost(@RequestParam(name = "title") String title, @RequestParam(name = "body") String body) {
+//        postDao.save(new Post(title, body, userDao.getById(1L)));
+//        return "redirect:/posts";
+//    }
+
+//    TODO FORM MODEL BINDING 1.
+//    Refactor your PostController and create form to implement form model binding.
+    @GetMapping("/posts/create")
+    public String showCreateForm(Model model) {
+        model.addAttribute("post", new Post());
         return "posts/create";
     }
 
     @PostMapping("/posts/create")
-    public String savePost(@RequestParam(name = "title") String title, @RequestParam(name = "body") String body) {
-        postDao.save(new Post(title, body, userDao.getById(1L)));
+    public String create(@ModelAttribute Post post) {
+        // save the post...
+        postDao.save(post);
+        // redirect to the index with all the ads
         return "redirect:/posts";
+
+    }
+//    TODO FORM MODEL BINDING 2.
+//    Create a controller method and HTML template for viewing a form to edit a specific post.
+    @GetMapping("/posts/{id}/edit")
+    public String editPosts(Model model, @PathVariable long id) {
+        model.addAttribute("post", postDao.getById(id));
+        return "posts/create";
     }
 }

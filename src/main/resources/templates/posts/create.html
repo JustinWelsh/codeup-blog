@@ -7,6 +7,7 @@
 </head>
 <body>
 <nav th:replace="partials/fragment :: navbar"></nav>
+<!--
 <form action="/posts/create" method="post">
     <label for="title">Title</label>
     <input type="text" name="title" id="title">
@@ -14,5 +15,26 @@
     <input type="text" id="body" name="body">
     <button type="submit">Create Post</button>
 </form>
+-->
+
+<!--
+<form> => th:     action="@{}"    method="POST/GET"   object="${}"
+<input> => th:    field="*{}"
+-->
+
+<!--TODO 1. FORM MODEL BINDING-->
+<!--Refactor your PostController and create form to implement form model binding.-->
+
+<form th:action="@{/posts/create}" th:method="post" th:object="${post}">
+    <label for="title">Title:</label>
+    <input th:field="*{title}" id="title" />
+    <br />
+    <label for="body">Body:</label>
+    <input th:field="*{body}" id="body" />
+    <br />
+    <input type="hidden" th:field="*{id}">
+    <input type="submit" />
+</form>
+
 </body>
 </html>

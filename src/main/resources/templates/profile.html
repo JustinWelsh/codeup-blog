@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="US"><head>
+    <meta charset="UTF-8"/>
+    <title>My Profile</title>
+</head>
+<body>
+<div sec:authorize="isAuthenticated()">
+    This content is only shown to authenticated users.
+
+    User ID: <span th:text="${#authentication.principal.id}"/>
+    Username: <span th:text="${#authentication.principal.username}"/>
+    Email: <span th:text="${#authentication.principal.email}"/>
+</div>
+<div sec:authorize="!isAuthenticated()">
+    <h1>You don't belong here! Go Log In!</h1>
+</div>
+</body>
+</html>

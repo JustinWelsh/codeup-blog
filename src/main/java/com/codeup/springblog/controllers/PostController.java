@@ -3,6 +3,7 @@ package com.codeup.springblog.controllers;
 import com.codeup.springblog.models.Post;
 import com.codeup.springblog.repositories.PostRepository;
 import com.codeup.springblog.repositories.UserRepository;
+import com.codeup.springblog.services.EmailService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,10 +13,13 @@ public class PostController {
 //    TODO 6. Use dependency injection to use an instance of this new Posts interface.
     private final PostRepository postDao;
     private final UserRepository userDao;
+    private final EmailService emailService;
 
-    public PostController(PostRepository postDao, UserRepository userDao) {
+
+    public PostController(PostRepository postDao, UserRepository userDao, EmailService emailService) {
         this.postDao = postDao;
         this.userDao = userDao;
+        this.emailService = emailService;
     }
 
     //    TODO: Create a new array list and add two post objects to it, then pass that list to the view.md.
@@ -69,9 +73,9 @@ public class PostController {
         post.setUser(userDao.getById(1L));
         // save the post...
         postDao.save(post);
+        emailService.prepareAndSend(post, "Post saved");
         // redirect to the index with all the ads
         return "redirect:/posts";
-
     }
 //    TODO FORM MODEL BINDING 2.
 //    Create a controller method and HTML template for viewing a form to edit a specific post.

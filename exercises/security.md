@@ -34,7 +34,7 @@ In order to test the integration of this component we will also need:
 
 #Exercise:
 1. Using the examples from this lesson, secure your blog application such that you have to log in to create a post.
-2. 
+
 *models*
 ```java
 //User (update)

@@ -2,6 +2,7 @@ package com.codeup.springblog.controllers;
 
 import com.codeup.springblog.models.User;
 import com.codeup.springblog.repositories.UserRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -29,11 +30,11 @@ public class UserController {
         return "redirect:/profile";
     }
 
-//    @GetMapping("/profile")
-//    public String showProfile() {
-//        // Expression to access the current user using Spring Security
-//        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//
-//        return "profile";
-//    }
+    @GetMapping("/profile")
+    public String showProfile() {
+        // Expression to access the current user using Spring Security
+        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        return "profile";
+    }
 }

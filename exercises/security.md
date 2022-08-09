@@ -23,7 +23,7 @@ After this lesson you'll add/modify several classes:
 * one repository ([UserRepository](/Users/justinwelsh/IdeaProjects/springblog/src/main/java/com/codeup/springblog/repositories/UserRepository.java))
 * one service ([UserDetailsLoader](/Users/justinwelsh/IdeaProjects/springblog/src/main/java/com/codeup/springblog/services/UserDetailsLoader.java))
 * configuration class ([SecurityConfiguration](/Users/justinwelsh/IdeaProjects/springblog/src/main/java/com/codeup/springblog/config/SecurityConfiguration.java)).
-* two controllers ([AuthenticationController](), [UserController]())
+* two controllers ([AuthenticationController](/Users/justinwelsh/IdeaProjects/springblog/src/main/java/com/codeup/springblog/controllers/AuthController.java), [UserController](/Users/justinwelsh/IdeaProjects/springblog/src/main/java/com/codeup/springblog/controllers/UserController.java))
 
 In order to test the integration of this component we will also need:
 

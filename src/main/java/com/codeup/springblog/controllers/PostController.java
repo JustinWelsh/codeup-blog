@@ -1,9 +1,11 @@
 package com.codeup.springblog.controllers;
 
 import com.codeup.springblog.models.Post;
+import com.codeup.springblog.models.User;
 import com.codeup.springblog.repositories.PostRepository;
 import com.codeup.springblog.repositories.UserRepository;
 import com.codeup.springblog.services.EmailService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -70,8 +72,8 @@ public class PostController {
 
     @PostMapping("/posts/create")
     public String create(@ModelAttribute Post post) {
-        post.setUser(userDao.getById(1L));
-        // save the post...
+        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        post.setUser(currentUser);        // save the post...
         postDao.save(post);
         emailService.prepareAndSend(post, "Post saved");
         // redirect to the index with all the ads
@@ -79,9 +81,34 @@ public class PostController {
     }
 //    TODO FORM MODEL BINDING 2.
 //    Create a controller method and HTML template for viewing a form to edit a specific post.
-    @GetMapping("/posts/{id}/edit")
-    public String editPosts(Model model, @PathVariable long id) {
+//    @GetMapping("/posts/{id}/edit")
+//    public String editPosts(Model model, @PathVariable long id) {
+//        model.addAttribute("post", postDao.getById(id));
+//        return "posts/create";
+//    }
+@RequestMapping(path = "/posts/{id}/edit", method = RequestMethod.GET)
+public String viewEditPostForm(Model model, @PathVariable long id) {
+    User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    if(currentUser.getId() == postDao.getById(id).getUser().getId()) {
+        model.addAttribute("title", "Edit post");
         model.addAttribute("post", postDao.getById(id));
         return "posts/create";
+
+    } else{
+        return "redirect:/login";
+    }
+}
+
+    @PostMapping("/posts/{id}/edit")
+    public String submitEditForm(@PathVariable long id, @RequestParam String title, @RequestParam String body) {
+        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Post postToEdit = postDao.getById(id);
+
+        postToEdit.setTitle(title);
+        postToEdit.setBody(body);
+        postToEdit.setUser(currentUser);
+
+        postDao.save(postToEdit);
+        return "redirect:/posts/" + id;
     }
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:fragment="head(title)">
     <meta charset="UTF-8">
     <title th:text="${title}"></title>
@@ -27,6 +27,16 @@
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
+            <th:block sec:authorize="isAuthenticated()">
+                <form class="d-flex" th:action="@{/logout}" th:method="POST">
+                    <button type="submit" class="btn btn-outline-success">Logout</button>
+                </form>
+            </th:block>
+            <th:block sec:authorize="!isAuthenticated()">
+                <div class="d-flex">
+                    <a href="/login" class="btn btn-outline-success">Login</a>
+                </div>
+            </th:block>
         </div>
     </div>
 </nav>

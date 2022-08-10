@@ -158,8 +158,8 @@ public class SecurityConfiguration {
                 .and()
                 .authorizeRequests()
                 .antMatchers(
-                        "/ads/create", // only authenticated users can create ads
-                        "/ads/{id}/edit" // only authenticated users can edit ads
+                        "/posts/create", // only authenticated users can create posts
+                        "/posts/{id}/edit" // only authenticated users can edit post
                 )
                 .authenticated()
         ;
@@ -215,5 +215,62 @@ public class AuthController {
 3. When a post is created, assign the logged in user as the owner of that post.
 
 ##Walkthrough Notes:
+* Security configuration
+```java
+                        "/posts/create", // only authenticated users can create posts
+                        "/posts/{id}/edit" // only authenticated users can edit post
+```
+* PostController
+```java
+//    @PostMapping("/posts/create")
+//    public String create(@ModelAttribute Post post) {
+        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        post.setUser(currentUser);
+//        postDao.save(post);
+//        emailService.prepareAndSend(post, "Post saved");
+//        return "redirect:/posts";
+//    }
 
+@RequestMapping(path = "/posts/{id}/edit", method = RequestMethod.GET)
+public String viewEditPostForm(Model model, @PathVariable long id) {
+        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(currentUser.getId() == postsDao.getById(id).getUser().getId()) {
+        model.addAttribute("title", "Edit post");
+        model.addAttribute("post", postsDao.getById(id));
+        return "posts/create";
+
+        } else{
+        return "redirect:/login";
+        }
+        }
+
+@PostMapping("/posts/{id}/edit")
+public String submitEditForm(@PathVariable long id, @RequestParam String title, @RequestParam String body) {
+        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Post postToEdit = postsDao.getById(id);
+
+        postToEdit.setTitle(title);
+        postToEdit.setBody(body);
+        postToEdit.setUser(currentUser);
+
+        postsDao.save(postToEdit);
+        return "redirect:/posts/" + id;
+        }
+```
+* fragment.html
+```html
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+
+            <th:block sec:authorize="isAuthenticated()">
+                <form class="d-flex" th:action="@{/logout}" th:method="POST">
+                    <button type="submit" class="btn btn-outline-success">Logout</button>
+                </form>
+            </th:block>
+            <th:block sec:authorize="!isAuthenticated()">
+                <div class="d-flex">
+                    <a href="/login" class="btn btn-outline-success">Login</a>
+                </div>
+            </th:block>
+```
 
